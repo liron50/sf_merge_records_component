@@ -1,0 +1,26 @@
+.hightlightCell {
+    background: #c9b495;
+}
+.fieldCell{
+    width: 250px;
+}
+.cursorCell {
+    cursor: pointer;
+}
+div.fieldTable td, div.fieldTabe th{
+    width: 80px;
+    height: 20px;
+}
+div.fieldTable table{
+    max-width: 500px;
+}
+.slds-modal__container{
+    height: 80%;
+    top: 10%;
+}
+.slds-modal__header{
+    background: grey; 
+} 
+.slds-modal__footer{
+    background: grey; 
+}

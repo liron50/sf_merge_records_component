@@ -1,0 +1,59 @@
+<template>
+    <template if:true={mainRecord}>
+        <div class="slds-card__header-title">Marge {objectApiName}</div>
+        <c-custom-lookup-comp lookup-label="Search" object-api-name={objectApiName} onrecordselection={secondRecordSelected}>
+        </c-custom-lookup-comp>
+        
+        <template if:true={showFieldsTable}>
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container" style="max-width: 50% !important;">
+                    <header class="slds-modal__header slds-text-heading--label">
+                        Merge {mainRecord.Name} with {secondRecord.Name}
+                        <lightning-helptext content={helpText}></lightning-helptext>
+                    </header>
+
+                    <div class="slds-modal__content slds-p-around_medium">
+                        <div class="fieldTable">
+                            <table>
+                                <tr>
+                                    <th>{mainRecord.Name}</th>
+                                    <th>{secondRecord.Name}</th>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <lightning-record-view-form record-id={mainRecord.Id} object-api-name={objectApiName}>
+                                            <template for:each={fieldData} for:item='rowItem'>
+                                                <div key={rowItem.fName} onclick={cellClickedFunction} data-field={rowItem.fName} data-rec='rec1' class={rowItem.rec1Style}>
+                                                    <lightning-output-field field-name={rowItem.fName}></lightning-output-field>
+                                                </div>
+                                            </template>
+                                        </lightning-record-view-form>
+                                    </td>
+                                    <td>
+                                        <lightning-record-view-form record-id={secondRecord.Id} object-api-name={objectApiName}>
+                                            <template for:each={fieldData} for:item='rowItem'>
+                                                <div key={rowItem.fName} onclick={cellClickedFunction} data-field={rowItem.fName} data-rec='rec2' class={rowItem.rec2Style}>
+                                                    <lightning-output-field field-name={rowItem.fName}></lightning-output-field>
+                                                </div>
+                                            </template>
+                                        </lightning-record-view-form>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <footer class="slds-modal__footer" style="text-align: left;">
+                        <lightning-input type="checkbox" label="Merge Child Records" checked={mergeRelatedList} onchange={includeRelatedListSwitch} style="margin-bottom: 1%;"></lightning-input>
+
+                        <lightning-button label="Merge" variant="bare" class="slds-button slds-button-brand" onclick={mergeRecords}></lightning-button>
+                        <lightning-button label="Cancel" variant="bare" class="slds-button slds-button-brand" onclick={cancelMerge}></lightning-button>
+                    </footer>
+                </div>
+            </section>
+        </template>
+
+
+    </template>
+</template>
